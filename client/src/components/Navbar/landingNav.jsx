@@ -45,11 +45,9 @@ export default function landingNav() {
           <li>
             <a href="/home">Recipes</a>
           </li>
+
           <li>
-            <a href="/home">Categories</a>
-          </li>
-          <li>
-            <a href="/">Contact Us</a>
+            <a href="/home">Contact Us</a>
           </li>
         </ul>
       </nav>

@@ -71,7 +71,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      history.push("/");
+      history.push("/home");
     }
   }, []);
 

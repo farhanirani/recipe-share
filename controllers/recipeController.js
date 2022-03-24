@@ -140,28 +140,13 @@ module.exports.deleteRecipe = async (req, res) => {
   const db = req.app.locals.db;
 
   try {
-    const token = req.header("x-auth-token");
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    if (!verified) return res.json(false);
-
-    const user_id = verified.id;
     const recipeid = req.params.recipeid;
 
-    const checkCreator = await db.query(
-      "SELECT * FROM recipe_table WHERE recipe_id = ?",
+    const querydata = await db.query(
+      "DELETE FROM recipe_table WHERE recipe_id = ?",
       [recipeid]
     );
-    // console.log(checkCreator[0][0]);
-
-    if (!checkCreator[0][0] || checkCreator[0][0].creator_id != user_id) {
-      res.status(401).json({ message: "Not authorized!!!!!!!!" });
-    } else {
-      const querydata = await db.query(
-        "DELETE FROM recipe_table WHERE recipe_id = ?",
-        [recipeid]
-      );
-      res.status(200).json({ message: "Recipe removed successfully" });
-    }
+    res.status(200).json({ message: "Recipe removed successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

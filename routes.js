@@ -22,21 +22,11 @@ router.get("/user/checkToken", User.checkToken);
 //  *                                                                                      */
 // //========================================================================================
 
-/*
-view bookmarks
-add to bookmarks
-remove from bookmarks
-rate a recipe
-comment on recipe
-delete a comment
-add user and recipe to viewed
-*/
-
 const Recipe = require("./controllers/recipeController");
 
 router.get("/recipe/all/:category", Recipe.getAllRecipe);
 router.post("/recipe/create", auth, Recipe.createRecipe);
 router.get("/recipe/:id", Recipe.getRecipe);
-router.delete("/recipe/delete/:recipeid", auth, Recipe.deleteRecipe);
+// router.delete("/recipe/delete/:recipeid", auth, Recipe.deleteRecipe);
 
 module.exports = router;

@@ -124,29 +124,7 @@ export default function HomePage() {
           padding: "10px",
           marginTop: "20px",
         }}
-      >
-        {/* <div
-          style={{ padding: "5px 20px", fontSize: "22px", fontWeight: "700" }}
-        >
-          Cuisine :
-        </div> */}
-        <select
-          name="cars"
-          id="cars"
-          style={{
-            padding: "5px 20px",
-            borderRadius: "30px",
-            fontSize: "20px",
-            outline: "none",
-          }}
-        >
-          <option value="volvo">Default</option>
-          <option value="saab">Indian</option>
-          <option value="mex">Mexican</option>
-          <option value="chin">Chinese</option>
-          <option value="southI">South Indian</option>
-        </select>
-      </div>
+      ></div>
       <div
         style={{
           height: "100%",

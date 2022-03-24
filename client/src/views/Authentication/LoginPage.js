@@ -41,7 +41,7 @@ export default function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      history.push("/");
+      history.push("/home");
     }
     // eslint-disable-next-line
   }, []);
@@ -55,7 +55,7 @@ export default function Login() {
       console.log(loginUser);
 
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+      history.push("/home");
     } catch (err) {
       alert(err.response.data.message);
     }

@@ -22,10 +22,10 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <Route path="/create" component={CreateRecipe} />
+        <Route exact path="/home" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route exact path="/create" component={CreateRecipe} />
         <Route path="/view" component={ViewRecipe} />
       </Switch>
     </BrowserRouter>

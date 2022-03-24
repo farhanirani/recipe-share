@@ -84,48 +84,18 @@ export default function SignUpPage() {
         confirmPassword.trim().length &&
         password.trim().length
       ) {
-        if (selectedValue === "user") {
-          console.log(selectedValue);
-          const data = {
-            username: username,
-            email,
-            password,
-            confirmPassword,
-            bio: "",
-          };
-          console.log(data);
-          const reguser = await axios.post("/api/user/register", data);
-          alert("Success, now you can login");
-          history.push("/login");
-        } else {
-          if (
-            fname.trim().length &&
-            lname.trim().length &&
-            email.trim().length
-          ) {
-            const form = new FormData();
-            form.append("userName", username);
-            form.append("password", password);
-            form.append("confirmPassword", confirmPassword);
-            form.append("fname", fname);
-            form.append("lname", lname);
-            form.append("email", email);
-            form.append("certificate", file);
-            // console.log(form);
-
-            const reguser = await axios.post("/api/users/registerdoc", form, {
-              headers: { "Content-Type": "multipart/form-data" },
-            });
-
-            // console.log(reguser);
-            alert(
-              "You have successfully applied for a position of a doctor, and will be reviewed soon"
-            );
-            history.push("/");
-          } else {
-            return alert("Please enter all details");
-          }
-        }
+        console.log(selectedValue);
+        const data = {
+          username: username,
+          email,
+          password,
+          confirmPassword,
+          bio: "",
+        };
+        console.log(data);
+        const reguser = await axios.post("/api/user/register", data);
+        alert("Success, now you can login");
+        history.push("/login");
       } else {
         alert("Please fill all the fields");
       }

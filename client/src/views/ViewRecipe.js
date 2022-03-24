@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewRecipe() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const recipeIDFROMURL = window.location.pathname.substring(5);
+  const recipeIDFROMURL = window.location.pathname.substring(6);
   const [posts, setPosts] = useState([]);
   const [asdasd, setasdasd] = useState(false);
 

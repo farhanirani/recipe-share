@@ -240,15 +240,11 @@ export function FormikStepper({
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
-          const temp = await axios.post(
-            "http://localhost:4000/api/recipe/create",
-            values,
-            {
-              headers: {
-                "x-auth-token": localStorage.getItem("auth-token"),
-              },
-            }
-          );
+          const temp = await axios.post("/api/recipe/create", values, {
+            headers: {
+              "x-auth-token": localStorage.getItem("auth-token"),
+            },
+          });
 
           console.log("jehehehehejjejejejejjej");
           console.log(values);

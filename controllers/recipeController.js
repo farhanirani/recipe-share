@@ -14,7 +14,7 @@ module.exports.getAllRecipe = async (req, res) => {
   try {
     if (category != 0) {
       querydata = await db.query(
-        "SELECT * FROM recipe_table WHERE category_id=?",
+        "SELECT * FROM recipe_table WHERE category_id=? ORDER BY views_count DESC",
         [category]
       );
     } else {
@@ -46,44 +46,44 @@ module.exports.createRecipe = async (req, res) => {
 
     const {
       recipe_name,
-      desc,
+      recipe_desc,
       recipe_image,
       time,
       category_id,
-      ingredients,
-      steps,
+      recipe_ingredients,
+      recipe_steps,
     } = req.body;
     console.log(req.body);
 
     const querydata = await db.query(
-      "INSERT INTO recipe_table(creator_id, recipe_name, recipe_desc, recipe_image, no_steps, time_required, category_id) VALUES (?,?,?,?,?,?,1)",
+      "INSERT INTO recipe_table(creator_id, recipe_name, recipe_desc, recipe_image, no_steps, time_required, category_id) VALUES (?,?,?,?,?,?,?)",
       [
         user_id,
         recipe_name,
-        desc,
+        recipe_desc,
         recipe_image,
-        steps.length,
+        recipe_steps.length,
         time,
-        category_id,
+        parseInt(category_id),
       ]
     );
-    // console.log(querydata[0].insertId)
+    // console.log(querydata[0].insertId);
 
     // ingredients table
 
-    for (var i = 0; i < ingredients.length; i++) {
+    for (var i = 0; i < recipe_ingredients.length; i++) {
       var query2 = await db.query(
         "INSERT INTO recipe_ingredients_table(recipe_id,instructions) VALUES(?,?)",
-        [querydata[0].insertId, ingredients[i]]
+        [querydata[0].insertId, recipe_ingredients[i]]
       );
     }
 
     // // steps table
 
-    for (var i = 0; i < ingredients.length; i++) {
+    for (var i = 0; i < recipe_ingredients.length; i++) {
       var query2 = await db.query(
         "INSERT INTO step_table(recipe_id,instructions) VALUES(?,?)",
-        [querydata[0].insertId, steps[i]]
+        [querydata[0].insertId, recipe_steps[i]]
       );
     }
 

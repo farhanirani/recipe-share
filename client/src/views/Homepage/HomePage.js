@@ -62,6 +62,14 @@ export default function HomePage() {
   const classes = useStyles();
   const [forums, setForums] = useState([]);
   const history = useHistory();
+  const [items] = React.useState([
+    { label: "General", value: 0 },
+    { label: "Chinese", value: 1 },
+    { label: "Indian", value: 2 },
+    { label: "Mexican", value: 3 },
+    { label: "Dessert", value: 4 },
+  ]);
+  const [value, setValue] = React.useState(0);
 
   useEffect(() => {
     (async () => {
@@ -71,9 +79,18 @@ export default function HomePage() {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const forumdata = await axios.get("/api/recipe/all/" + value);
+      console.log(forumdata.data);
+      setForums(forumdata.data);
+    })();
+  }, [value]);
+
   return (
     <div>
       <Navbar />
+
       <div
         style={{
           display: "flex",
@@ -100,23 +117,49 @@ export default function HomePage() {
         >
           Enjoy meals at your own comfort
         </div>
-        <Button
-          variant="contained"
+        <div
           style={{
-            width: "200px",
-            marginTop: "20px",
-            backgroundColor: "#00b712",
-            borderRadius: "5px",
-            fontSize: "18px",
-            color: "#fff",
-          }}
-          onClick={() => {
-            history.push("/create");
+            marginTop: "40px",
           }}
         >
-          Create Recipe
-        </Button>
+          <Button
+            variant="contained"
+            style={{
+              width: "200px",
+              backgroundColor: "#00b712",
+              borderRadius: "5px",
+              fontSize: "18px",
+              color: "#fff",
+              marginRight: "60px  ",
+            }}
+            onClick={() => {
+              history.push("/create");
+            }}
+          >
+            Create Recipe
+          </Button>
+
+          <select
+            style={{
+              width: "200px",
+              backgroundColor: "#00b712",
+              borderRadius: "5px",
+              fontSize: "18px",
+              height: "40px",
+              color: "#fff",
+            }}
+            value={value}
+            onChange={(e) => setValue(e.currentTarget.value)}
+          >
+            {items.map(({ label, value }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -125,6 +168,7 @@ export default function HomePage() {
           marginTop: "20px",
         }}
       ></div>
+
       <div
         style={{
           height: "100%",

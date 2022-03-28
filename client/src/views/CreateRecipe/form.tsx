@@ -38,12 +38,12 @@ export default function Home() {
         <FormikStepper
           initialValues={{
             recipe_name: "",
-            desc: "",
+            recipe_desc: "",
             recipe_image: "",
             time: "60 min",
             category_id: "1",
-            ingredients: [""],
-            steps: [""],
+            recipe_ingredients: [""],
+            recipe_steps: [""],
           }}
           onSubmit={async (values) => {
             await sleep(3000);
@@ -63,7 +63,7 @@ export default function Home() {
             <Box paddingBottom={2}>
               <Field
                 fullWidth
-                name="desc"
+                name="recipe_desc"
                 component={TextField}
                 label="Description"
                 id="standard-textarea"
@@ -74,9 +74,9 @@ export default function Home() {
             <Box paddingBottom={2}>
               <Field
                 fullWidth
-                name="cuisineName"
+                name="category_id"
                 component={TextField}
-                label="Cuisine Name"
+                label="0-General, 1-Chinese, 2-Indian, 3-Mexican, 4-Dessert "
                 required
               />
             </Box>
@@ -99,10 +99,10 @@ export default function Home() {
                 {(fieldArrayProps) => {
                   const { push, remove, form } = fieldArrayProps;
                   const { values } = form;
-                  const { ingredients } = values;
+                  const { recipe_ingredients } = values;
                   return (
                     <div>
-                      {ingredients.map((ingredient, index) => (
+                      {recipe_ingredients.map((ingredient, index) => (
                         <div
                           key={index}
                           style={{ display: "flex", marginBottom: "10px" }}
@@ -110,7 +110,7 @@ export default function Home() {
                           <Field
                             fullWidth
                             component={TextField}
-                            name={`ingredients[${index}]`}
+                            name={`recipe_ingredients[${index}]`}
                             label="Add Ingredient"
                             placeholder="Enter ingredient"
                             required
@@ -133,7 +133,7 @@ export default function Home() {
                           variant="contained"
                           aria-label="add"
                           color="primary"
-                          onClick={() => push(ingredients.length)}
+                          onClick={() => push(recipe_ingredients.length)}
                           startIcon={<AddIcon />}
                           style={{ padding: "5px", marginTop: "16px" }}
                         >
@@ -155,10 +155,10 @@ export default function Home() {
                 {(fieldArrayProps) => {
                   const { push, remove, form } = fieldArrayProps;
                   const { values } = form;
-                  const { steps } = values;
+                  const { recipe_steps } = values;
                   return (
                     <div>
-                      {steps.map((step, index) => (
+                      {recipe_steps.map((step, index) => (
                         <div
                           key={index}
                           style={{ display: "flex", marginBottom: "10px" }}
@@ -166,7 +166,7 @@ export default function Home() {
                           <Field
                             fullWidth
                             component={TextField}
-                            name={`steps[${index}]`}
+                            name={`recipe_steps[${index}]`}
                             placeholder="Step Description"
                             label="Step Detail"
                             multiline
@@ -190,7 +190,7 @@ export default function Home() {
                           variant="contained"
                           aria-label="add"
                           color="primary"
-                          onClick={() => push(steps.length)}
+                          onClick={() => push(recipe_steps.length)}
                           startIcon={<AddIcon />}
                           style={{ padding: "5px", marginTop: "16px" }}
                         >
@@ -240,11 +240,15 @@ export function FormikStepper({
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
-          const temp = await axios.post("/api/recipe/create", values, {
-            headers: {
-              "x-auth-token": localStorage.getItem("auth-token"),
-            },
-          });
+          const temp = await axios.post(
+            "http://localhost:4000/api/recipe/create",
+            values,
+            {
+              headers: {
+                "x-auth-token": localStorage.getItem("auth-token"),
+              },
+            }
+          );
 
           console.log("jehehehehejjejejejejjej");
           console.log(values);

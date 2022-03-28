@@ -11,7 +11,6 @@ const User = require("./controllers/userController");
 
 router.post("/user/register", User.signUp);
 router.post("/user/login", User.login);
-router.patch("/user/updateuser", auth, User.updateuser);
 router.get("/user/checkToken", User.checkToken);
 
 // router.get("/user/getusername/:userid", User.getusername);
